@@ -26,7 +26,7 @@
 extern "C"
 char* BRegexpVersion(void)
 {
-	static char version[] = "Bregexp.dll V1.0 for SAKURA "
+	static char version[] = "Bregexp.dll V1.01 for SAKURA "
 __DATE__;
 
 	return version;
@@ -172,7 +172,7 @@ readytogo:
 
 
 	if (rx->pmflags & PMf_SUBSTITUTE) {
-		return subst(rx,target,targetendp,msg);
+		return subst(rx,target,targetendp,targetbegp,msg);
 	}
 	BOOL matched = bregexec(rx, target, targetendp, targetbegp, 0, 1, msg);
 	if (matched && rx->nparens && rx->endp[1] > rx->startp[1]) {

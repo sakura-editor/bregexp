@@ -154,7 +154,7 @@ regexp *compile(const char* str,int plen,char *msg)
 }
 
 	
-int subst(regexp* rx,char *target,char *targetendp,char *msg)
+int subst(regexp* rx,char *target,char *targetendp,char *targetbegp,char *msg)
 {
 	char *orig,*m,*c;
 	char *s = target;
@@ -163,7 +163,8 @@ int subst(regexp* rx,char *target,char *targetendp,char *msg)
     int maxiters = (strend - s) + 10;
 	int iters = 0;
 	int clen;
-    orig = m = s;
+    orig = targetbegp;
+	m = s;
     int once = !(rx->pmflags & PMf_GLOBAL);
 	c = rx->prerepp;
 	clen = rx->prerependp - c;

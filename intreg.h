@@ -64,6 +64,6 @@ char *msg);		/* fatal error message */
 BOOL split(regexp* rx,char *target,char *targetendp,
 			int limit,char *msg);
 regexp *compile(const char* str,int plen,char *msg);
-BOOL subst(regexp* rx,char *target,char *targetendp,char *msg);
+BOOL subst(regexp* rx,char *target,char *targetendp,char *targetbegp,char *msg);
 int trans(regexp* rx,char *target,char *targetendp,char *msg);
 //REPSTR *cvrepstr(regexp* rx,char *str,char* strend);

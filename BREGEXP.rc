@@ -28,7 +28,7 @@ LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,0,4,29
+ FILEVERSION 2,0,4,291
  PRODUCTVERSION 2,0,4,29
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -47,7 +47,7 @@ BEGIN
             VALUE "Comments", "Regular Expression Engine for SAKURA\0"
             VALUE "CompanyName", "Tatsuo Baba\0"
             VALUE "FileDescription", "BREGEXP\0"
-            VALUE "FileVersion", "2, 0, 4, 29\0"
+            VALUE "FileVersion", "2, 0, 4, 291\0"
             VALUE "InternalName", "BREGEXP\0"
             VALUE "LegalCopyright", "Copyright (C) 1999-2000 Tatsuo Baba\0"
             VALUE "LegalTrademarks", "\0"
