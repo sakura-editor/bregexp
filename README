@@ -1,0 +1,33 @@
+
+Bregexp is a Regular Expression library.           
+
+Copyright (c) 1999 Tatsuo Baba. All rights reserved.
+
+This package is based on perl 5 source. Therefore regular expression 
+syntax is same as perl 5.
+
+This package is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+See perl_license.txt for details of Perl license.
+
+Author has built only against:
+  RedHat Linux 6.1 (x86)
+       g++
+       gcc
+
+I have not tried other target. 
+So please mail me the Makefile if you tried other platform.
+
+
+usage:
+$ make
+$ su
+password:
+# make install
+
+$ gcc sample.c -lbregexp
+$ ./a.out /home/
+
+
+
