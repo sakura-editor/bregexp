@@ -1,0 +1,10 @@
+LIBRARY BREGEXP
+EXPORTS
+		BMatch
+		BSubst
+		BTrans
+		BSplit
+		BRegfree
+		BRegexpVersion
+		BMatchEx
+		BSubstEx

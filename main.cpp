@@ -26,17 +26,15 @@
 extern "C"
 char* BRegexpVersion(void)
 {
-	static char version[] = "bregexp V1.0"
-__DATE__
-" "
-__TIME__;
+	static char version[] = "Bregexp.dll V1.0 for SAKURA "
+__DATE__;
 
 	return version;
 }
 
 
 extern "C"
-int BMatch(char* str,char *target,char *targetendp,
+int BMatchEx(char* str, char *targetbegp, char *target,char *targetendp,
 			BREGEXP **charrxp,char *msg)
 {
 
@@ -51,7 +49,8 @@ int BMatch(char* str,char *target,char *targetendp,
 	regexp *rx = *rxp;			// same string before ?
 	int plen;
 
-	if (target == NULL || targetendp == NULL
+	if (targetbegp == NULL || targetbegp > target 
+		|| target == NULL || targetendp == NULL
 		|| target >= targetendp) { // bad targer parameter ?
 		strcpy(msg,"invalid target parameter");
 		return -1;
@@ -95,7 +94,7 @@ readytogo:
 	}
 
 
-	BOOL matched = bregexec(rx, target, targetendp,target,0,1,msg);
+	BOOL matched = bregexec(rx, target, targetendp, targetbegp , 0, 1, msg);
 	if (matched && rx->nparens && rx->endp[1] > rx->startp[1]) {
 		int len = rx->endp[1] - rx->startp[1];
 		char *tp = new char[len+1];
@@ -112,9 +111,16 @@ readytogo:
 }
 
 
+extern "C"
+int BMatch(char* str,char *target,char *targetendp,
+			BREGEXP **charrxp,char *msg)
+{
+	return BMatchEx(str, target, target, targetendp, charrxp, msg);
+}
+
 
 extern "C"
-int BSubst(char* str,char *target,char *targetendp,
+int BSubstEx(char* str,char *targetbegp, char *target,char *targetendp,
 				BREGEXP **charrxp,char *msg)
 {
 
@@ -129,7 +135,8 @@ int BSubst(char* str,char *target,char *targetendp,
 	regexp *rx = *rxp;			// same string before ?
 	int plen;
 
-	if (target == NULL || targetendp == NULL
+	if (targetbegp == NULL || targetbegp > target 
+		|| target == NULL || targetendp == NULL
 		|| target >= targetendp) { // bad targer parameter ?
 		strcpy(msg,"invalid target parameter");
 		return -1;
@@ -167,7 +174,7 @@ readytogo:
 	if (rx->pmflags & PMf_SUBSTITUTE) {
 		return subst(rx,target,targetendp,msg);
 	}
-	BOOL matched = bregexec(rx, target, targetendp,target,0,1,msg);
+	BOOL matched = bregexec(rx, target, targetendp, targetbegp, 0, 1, msg);
 	if (matched && rx->nparens && rx->endp[1] > rx->startp[1]) {
 		int len = rx->endp[1] - rx->startp[1];
 		char *tp = new char[len+1];
@@ -183,6 +190,13 @@ readytogo:
 	return msg[0] == '\0' ? matched: -1 ;
 }
 
+
+extern "C"
+int BSubst(char* str,char *target,char *targetendp,
+				BREGEXP **charrxp,char *msg)
+{
+	return BSubstEx(str, target, target, targetendp, charrxp, msg);
+}
 
 extern "C"
 int BTrans(char* str,char *target,char *targetendp,
