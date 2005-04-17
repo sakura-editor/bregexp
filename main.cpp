@@ -26,13 +26,19 @@
 extern "C"
 char* BRegexpVersion(void)
 {
+	//	2003.11.01 Karoto : Change version info
 	static char version[] = "Bregexp.dll V1.01 for SAKURA "
 __DATE__;
 
 	return version;
 }
 
+/*
+	BMatchEx : enhanved version of BMatch
+	           to specify start point of the target string
 
+	2003.11.01 Karoto : Add "targetbegp" parameter to BMatch, and change API name
+*/
 extern "C"
 int BMatchEx(char* str, char *targetbegp, char *target,char *targetendp,
 			BREGEXP **charrxp,char *msg)
@@ -49,6 +55,7 @@ int BMatchEx(char* str, char *targetbegp, char *target,char *targetendp,
 	regexp *rx = *rxp;			// same string before ?
 	int plen;
 
+	//	2003.11.01 Karoto : Add parameter check for targetbegp
 	if (targetbegp == NULL || targetbegp > target 
 		|| target == NULL || targetendp == NULL
 		|| target >= targetendp) { // bad targer parameter ?
@@ -93,7 +100,7 @@ readytogo:
 		return 0;
 	}
 
-
+	//	2003.11.01 Karoto
 	BOOL matched = bregexec(rx, target, targetendp, targetbegp , 0, 1, msg);
 	if (matched && rx->nparens && rx->endp[1] > rx->startp[1]) {
 		int len = rx->endp[1] - rx->startp[1];
@@ -111,6 +118,11 @@ readytogo:
 }
 
 
+/*
+	BMatch
+
+	2003.11.01 Karoto : call BMatchEx() with specialized parameter
+*/
 extern "C"
 int BMatch(char* str,char *target,char *targetendp,
 			BREGEXP **charrxp,char *msg)
@@ -119,6 +131,12 @@ int BMatch(char* str,char *target,char *targetendp,
 }
 
 
+/*
+	BSubstEx : enhanved version of BSubst
+	           to specify start point of the target string
+
+	2003.11.01 Karoto : Add "targetbegp" parameter to BSubst, and change API name
+*/
 extern "C"
 int BSubstEx(char* str,char *targetbegp, char *target,char *targetendp,
 				BREGEXP **charrxp,char *msg)
@@ -135,6 +153,7 @@ int BSubstEx(char* str,char *targetbegp, char *target,char *targetendp,
 	regexp *rx = *rxp;			// same string before ?
 	int plen;
 
+	//	2003.11.01 Karoto : Add parameter check for targetbegp
 	if (targetbegp == NULL || targetbegp > target 
 		|| target == NULL || targetendp == NULL
 		|| target >= targetendp) { // bad targer parameter ?
@@ -174,6 +193,7 @@ readytogo:
 	if (rx->pmflags & PMf_SUBSTITUTE) {
 		return subst(rx,target,targetendp,targetbegp,msg);
 	}
+	//	2003.11.01 Karoto
 	BOOL matched = bregexec(rx, target, targetendp, targetbegp, 0, 1, msg);
 	if (matched && rx->nparens && rx->endp[1] > rx->startp[1]) {
 		int len = rx->endp[1] - rx->startp[1];
@@ -190,7 +210,11 @@ readytogo:
 	return msg[0] == '\0' ? matched: -1 ;
 }
 
+/*
+	BSubst
 
+	2003.11.01 Karoto : call BSubstEx() with specialized parameter
+*/
 extern "C"
 int BSubst(char* str,char *target,char *targetendp,
 				BREGEXP **charrxp,char *msg)

@@ -30,4 +30,14 @@ $ gcc sample.c -lbregexp
 $ ./a.out /home/
 
 
+---------------------------------------------------------------
+2003.11.01 Karoto
 
+Standard version is available at
+http://www.hi-ho.ne.jp/babaq/bregexp.html
+
+This software is freely used and distributed under
+the artistic license or GPL2.
+
+The author of standard version can incorporate
+this modified code in this software into the standard version.

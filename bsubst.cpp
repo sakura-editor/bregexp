@@ -153,7 +153,9 @@ regexp *compile(const char* str,int plen,char *msg)
 	return rx;
 }
 
-	
+/*
+	2003.11.1 Karoto : Add parameter "targetbegp"
+*/
 int subst(regexp* rx,char *target,char *targetendp,char *targetbegp,char *msg)
 {
 	char *orig,*m,*c;
@@ -163,7 +165,7 @@ int subst(regexp* rx,char *target,char *targetendp,char *targetbegp,char *msg)
     int maxiters = (strend - s) + 10;
 	int iters = 0;
 	int clen;
-    orig = targetbegp;
+    orig = targetbegp;	// 2003.11.1 Karoto : Add parameter "targetbegp"
 	m = s;
     int once = !(rx->pmflags & PMf_GLOBAL);
 	c = rx->prerepp;
