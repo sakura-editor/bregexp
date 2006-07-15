@@ -275,6 +275,11 @@ static char regkind[] = {
 
 #define FAIL(c)	throw(c)
 
+// 2006/06/24 ‚©‚ë‚Æ : MFC‚Ì–³‚¢ŠÂ‹«‚ÅƒGƒ‰[‚ªo‚È‚¢‚æ‚¤‚É
+#define TRACE(x) 
+#define TRACE0(x) 
+#define TRACE1(x, y) 
+#define TRACE2(x, y, z) 
 
 #define PMf_USED	0x0001		/* pm has been used once already */
 #define PMf_ONCE	0x0002		/* use pattern only once per reset */

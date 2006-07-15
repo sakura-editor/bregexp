@@ -227,8 +227,8 @@ int subst(regexp* rx,char *target,char *targetendp,char *targetbegp,char *msg)
 					memcpy(buf+copycnt, rep->startp[i], dlen);
 					copycnt += dlen;
 				}
-
-				else if (dlen <= rx->nparens && rx->startp[dlen]) {
+				// rx->endp[dlen] != NULL を追加し、未定義\numberを置換時の異常終了防止 2006/06/24 かろと
+				else if (dlen <= rx->nparens && rx->startp[dlen] && rx->endp[dlen]) {
 					len = rx->endp[dlen] - rx->startp[dlen];
 					if (blen <= copycnt + len) {
 						char *tp = new char[blen + len + 256];

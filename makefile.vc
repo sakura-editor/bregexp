@@ -1,0 +1,56 @@
+#
+#	bregex library makefile for VC 2003 Toolkit & Platform SDK
+#		2006.07.15 genta
+#
+#	Target file: Releases/bregexp.dll
+#
+#	References: original makeflie of bregexp : version	1.0 1999.11.24 Tatsuo Baba
+#               sakura editor makefile
+#
+DLLNAME = bregexp
+CC_OBJFILEOPT=/Fo
+CC_EXEFILEOPT=/Fe
+CFLAGS=/nologo /MT /LD /W3 /GX /Os /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "BREGEXP_EXPORTS" /YX /FD
+
+OBJDIR=Release
+OBJS=$(OBJDIR)\main.obj $(OBJDIR)\bregcomp.obj \
+	$(OBJDIR)\bsubst.obj $(OBJDIR)\bregexec.obj \
+	$(OBJDIR)\bsplit.obj $(OBJDIR)\btrans.obj $(OBJDIR)\sv.obj
+DEFFILE=bregexp.def
+
+LIBS=kernel32.lib
+LFLAGS=/machine:I386 /subsystem:windows /DEF:$(DEFFILE)
+
+all : "$(OBJDIR)" $(OBJDIR)\bregexp.dll
+
+.cpp{$(OBJDIR)}.obj:
+	$(CC) $(CFLAGS) $(CC_OBJFILEOPT)$(OBJDIR)\$(@F) -c $<
+
+$(OBJDIR)\$(DLLNAME).dll : $(OBJS)
+	$(CC) $(CFLAGS) $(CC_EXEFILEOPT)$@ $** /link $(LFLAGS) $(LIBS)
+
+"$(OBJDIR)": 
+    if not exist "$(OBJDIR)/" mkdir "$(OBJDIR)"
+
+$(OBJDIR)\main.obj : main.cpp sv.h bregexp.h global.h intreg.h
+
+$(OBJDIR)\bregexec.obj : bregexec.cpp sv.h global.h intreg.h
+
+$(OBJDIR)\bregcomp.obj : bregcomp.cpp sv.h global.h intreg.h
+
+$(OBJDIR)\bsubst.obj : bsubst.cpp sv.h global.h intreg.h
+
+$(OBJDIR)\bsplit.obj : bsplit.cpp sv.h global.h intreg.h
+
+$(OBJDIR)\btrans.obj : btrans.cpp sv.h global.h intreg.h
+
+$(OBJDIR)\sv.obj : sv.cpp sv.h
+
+clean : 
+	-del $(OBJDIR)\*.obj
+	-del $(OBJDIR)\$(DLLNAME).dll
+	-del $(OBJDIR)\$(DLLNAME).exp
+	-del $(OBJDIR)\$(DLLNAME).lib
+	-del *.idb
+	-del *.pch
+	-rmdir $(OBJDIR)

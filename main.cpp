@@ -27,7 +27,8 @@ extern "C"
 char* BRegexpVersion(void)
 {
 	//	2003.11.01 Karoto : Change version info
-	static char version[] = "Bregexp.dll V1.01 for SAKURA "
+	//	2006.07.14 genta : Change version info
+	static char version[] = "Bregexp.dll V1.02 for SAKURA "
 __DATE__;
 
 	return version;
